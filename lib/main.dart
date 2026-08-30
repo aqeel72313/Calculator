@@ -61,7 +61,17 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: Colors.grey.shade100,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text("Calculator")),
+        appBar: AppBar(
+          backgroundColor: Colors.white54,
+          titleSpacing: 20,
+            title: Text(
+            "Calculator",
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 30
+            ),
+            )
+        ),
         body: Column(
           children: [
             Expanded(
