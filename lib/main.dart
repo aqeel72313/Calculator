@@ -44,6 +44,13 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+  String formatResult(double result) {
+    if(result == result.toInt()){
+      return result.toInt().toString();
+    } else{
+      return result.toString();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +83,9 @@ class _MyAppState extends State<MyApp> {
                           onTap: () {
                             setState(() {
                               display = "0";
+                              operator = "";
+                              firstNumber = "";
+                              shouldResetDisplay = false;
                             });
                           },
                           child: Container(
@@ -92,6 +102,14 @@ class _MyAppState extends State<MyApp> {
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.all(5),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              double number = double.parse(display);
+                              number = -number;
+                              display = formatResult(number);
+                            });
+                          },
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -99,6 +117,7 @@ class _MyAppState extends State<MyApp> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Text("±", style: TextStyle(fontSize: 24)),
+                        ),
                         ),
                       ),
                     ),
@@ -261,6 +280,16 @@ class _MyAppState extends State<MyApp> {
                       flex: 2,
                       child: Padding(
                         padding: EdgeInsets.all(5),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if(display == "0"){
+                                display = "0";
+                              } else{
+                                display = display + "0";
+                              }
+                            });
+                          },
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -269,11 +298,18 @@ class _MyAppState extends State<MyApp> {
                           ),
                           child: Text("0", style: TextStyle(fontSize: 24)),
                         ),
+                        ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
                         padding: EdgeInsets.all(5),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              display = display + ".";
+                            });
+                          },
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -281,6 +317,7 @@ class _MyAppState extends State<MyApp> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: Text(".", style: TextStyle(fontSize: 24)),
+                        ),
                         ),
                       ),
                     ),
@@ -294,27 +331,27 @@ class _MyAppState extends State<MyApp> {
                                 double num1 = double.parse(firstNumber);
                                 double num2 = double.parse(display);
                                 double result = num1 + num2;
-                                display = result.toString();
+                                display = formatResult(result);
                               } else if (operator == "-") {
                                 double num1 = double.parse(firstNumber);
                                 double num2 = double.parse(display);
                                 double result = num1 - num2;
-                                display = result.toString();
+                                display = formatResult(result);
                               } else if (operator == "×") {
                                 double num1 = double.parse(firstNumber);
                                 double num2 = double.parse(display);
                                 double result = num1 * num2;
-                                display = result.toString();
+                                display = formatResult(result);
                               } else if (operator == "÷") {
                                 double num1 = double.parse(firstNumber);
                                 double num2 = double.parse(display);
                                 double result = num1 / num2;
-                                display = result.toString();
+                                display = formatResult(result);
                               } else if (operator == "%") {
                                 double num1 = double.parse(firstNumber);
                                 double num2 = double.parse(display);
                                 double result = num1 % num2;
-                                display = result.toString();
+                                display = formatResult(result);
                               }
                             });
                           },
